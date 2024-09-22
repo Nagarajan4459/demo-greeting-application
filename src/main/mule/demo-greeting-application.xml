@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="682eeca8-ee53-4edf-adfd-f43820992971" >
+		<http:listener-connection host="0.0.0.0" port="8083" />
+	</http:listener-config>
+	<flow name="demo-greeting-applicationFlow" doc:id="2618eeeb-a167-4ee0-8139-f7fc8b86ece1" >
+		<http:listener doc:name="Listener" doc:id="7d93adf2-fabe-463d-a1ae-8aa360e8164a" config-ref="HTTP_Listener_config" path="/api/greetings" allowedMethods="GET"/>
+		<ee:transform doc:name="Greeting" doc:id="d3ca6b82-bd3e-469e-88e4-790eceb0732f" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+"Welcome to muleSoft Learning"]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
